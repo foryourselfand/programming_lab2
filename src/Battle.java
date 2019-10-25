@@ -70,20 +70,20 @@ public final class Battle {
 
 	}
 
-//	public static void main(String[] var0) {
-//		Battle var1 = new Battle();
-//		var1.addAlly(new Pokemon("Весельчак У", 20) {
-//			{
-//				this.setStats(10.0D, 20.0D, 10.0D, 10.0D, 10.0D, 20.0D);
-//				this.setMove(new Move[]{new FireMove(Type.DRAGON, 5.0D, 1.0D)});
-//			}
-//		});
-//		var1.addFoe(new Pokemon("Тутан Хамон", 25) {
-//			{
-//				this.setStats(10.0D, 10.0D, 20.0D, 10.0D, 10.0D, 10.0D);
-//				this.addMove(new FireMove(Type.DARK, 4.0D, 0.8D));
-//			}
-//		});
-//		var1.go();
-//	}
+	public static void main(String[] var0) {
+		Battle var1 = new Battle();
+		var1.addAlly(new Pokemon("Весельчак У", 20) {
+			{
+				this.setStats(10.0D, 20.0D, 10.0D, 10.0D, 10.0D, 20.0D);
+				this.setMove(new Move[]{new FireMove(Type.DRAGON, 5.0D, 1.0D)});
+			}
+		});
+		var1.addFoe(new Pokemon("Тутан Хамон", 25) {
+			{
+				this.setStats(10.0D, 10.0D, 20.0D, 10.0D, 10.0D, 10.0D);
+				this.addMove(new FireMove(Type.DARK, 4.0D, 0.8D));
+			}
+		});
+		var1.go();
+	}
 }
