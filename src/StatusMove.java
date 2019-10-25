@@ -10,29 +10,29 @@ public class StatusMove extends Move {
 		super(var1, var2, var4, var6, var7);
 	}
 
-	public final void attack(Pokemon var1, Pokemon var2) {
+	public final void attack(Pokemon pokemon1, Pokemon pokemon2) {
 		for (int var3 = 0; var3 < this.hits; ++ var3) {
-			if (this.checkAccuracy(var1, var2)) {
-				System.out.println(var1 + " " + this.describe() + ". ");
-				if (this.type.getEffect(var2.getTypes()) > 0.0D) {
-					this.applyOppEffects(var2);
+			if (this.checkAccuracy(pokemon1, pokemon2)) {
+				System.out.println(pokemon1 + " " + this.describe() + ". ");
+				if (this.type.getEffect(pokemon2.getTypes()) > 0.0D) {
+					this.applyOppEffects(pokemon2);
 				} else {
-					System.out.println(var2 + " " + Messages.get("noeffect") + " " + this.type);
+					System.out.println(pokemon2 + " " + Messages.get("noeffect") + " " + this.type);
 				}
 
-				if (this.type.getEffect(var1.getTypes()) > 0.0D) {
-					this.applySelfEffects(var1);
+				if (this.type.getEffect(pokemon1.getTypes()) > 0.0D) {
+					this.applySelfEffects(pokemon1);
 				}
 			} else {
-				System.out.println(var1 + " " + Messages.get("miss"));
+				System.out.println(pokemon1 + " " + Messages.get("miss"));
 			}
 		}
 
 	}
 
-	protected void applySelfEffects(Pokemon var1) {
+	protected void applySelfEffects(Pokemon pokemon) {
 	}
 
-	protected void applyOppEffects(Pokemon var1) {
+	protected void applyOppEffects(Pokemon pokemon) {
 	}
 }

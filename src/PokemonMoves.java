@@ -101,8 +101,8 @@ class DoubleTeam extends StatusMove {
 	}
 
 	@Override
-	protected void applySelfEffects(Pokemon p) {
-		p.setMod(Stat.EVASION, + 1);
+	protected void applySelfEffects(Pokemon pokemon) {
+		pokemon.setMod(Stat.EVASION, + 1);
 	}
 
 	@Override
@@ -136,9 +136,9 @@ class IceBeam extends SpecialMove {
 	}
 
 	@Override
-	protected void applyOppEffects(Pokemon p) {
+	protected void applyOppEffects(Pokemon pokemon) {
 		if (Math.random() <= 0.1) {
-			Effect.freeze(p);
+			Effect.freeze(pokemon);
 		}
 	}
 

@@ -6,17 +6,17 @@ class Team {
 	private Pokemon pokemon;
 	private String name;
 
-	Team(String var1) {
-		this.name = var1;
+	Team(String name) {
+		this.name = name;
 	}
 
-	void add(Pokemon var1) {
-		this.team.add(var1);
+	void add(Pokemon pokemon) {
+		this.team.add(pokemon);
 	}
 
 	Pokemon next() {
-		if (this.pokemon == null || !this.pokemon.isAlive()) {
-			this.pokemon = (Pokemon)this.team.poll();
+		if (this.pokemon == null || ! this.pokemon.isAlive()) {
+			this.pokemon = this.team.poll();
 			this.pokemon.restore();
 			System.out.print(this.pokemon + " " + Messages.get("from") + " " + this.name);
 			System.out.println(" " + Messages.get("enter"));
@@ -26,7 +26,7 @@ class Team {
 	}
 
 	boolean hasNext() {
-		return !this.team.isEmpty() || this.pokemon.isAlive();
+		return ! this.team.isEmpty() || this.pokemon.isAlive();
 	}
 
 	Pokemon poke() {

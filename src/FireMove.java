@@ -3,8 +3,8 @@ class FireMove extends SpecialMove {
 		super(var1, var2, var4);
 	}
 
-	public void applyOppEffects(Pokemon var1) {
+	public void applyOppEffects(Pokemon pokemon) {
 		Effect var2 = (new Effect()).condition(Status.FREEZE).chance(0.8D).attack(0.0D).turns(-1);
-		var1.setCondition(var2);
+		pokemon.setCondition(var2);
 	}
 }

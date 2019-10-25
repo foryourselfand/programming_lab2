@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,7 +14,7 @@ public class Pokemon {
 	private int level;
 	private double[] base;
 
-	public Pokemon(String var1, int var2) {
+	public Pokemon(String name, int level) {
 		this.types = new LinkedList();
 		this.moves = new LinkedList();
 		this.stage = new Effect();
@@ -29,21 +24,21 @@ public class Pokemon {
 		this.base = new double[Stat.values().length];
 		this.types.add(Type.NONE);
 		this.moves.add(Move.getStruggleMove());
-		this.name = var1;
-		this.setLevel(var2);
+		this.name = name;
+		this.setLevel(level);
 	}
 
 	public Pokemon() {
 		this(Messages.get("noname"), 1);
 	}
 
-	public final void setStats(double var1, double var3, double var5, double var7, double var9, double var11) {
-		this.base[Stat.HP.ordinal()] = var1;
-		this.base[Stat.ATTACK.ordinal()] = var3;
-		this.base[Stat.DEFENSE.ordinal()] = var5;
-		this.base[Stat.SPECIAL_ATTACK.ordinal()] = var7;
-		this.base[Stat.SPECIAL_DEFENSE.ordinal()] = var9;
-		this.base[Stat.SPEED.ordinal()] = var11;
+	public final void setStats(double hp, double attack, double defense, double special_attack, double special_defense, double speed) {
+		this.base[Stat.HP.ordinal()] = hp;
+		this.base[Stat.ATTACK.ordinal()] = attack;
+		this.base[Stat.DEFENSE.ordinal()] = defense;
+		this.base[Stat.SPECIAL_ATTACK.ordinal()] = special_attack;
+		this.base[Stat.SPECIAL_DEFENSE.ordinal()] = special_defense;
+		this.base[Stat.SPEED.ordinal()] = speed;
 	}
 
 	public final double getStat(Stat var1) {
@@ -70,26 +65,26 @@ public class Pokemon {
 		return var6;
 	}
 
-	public final boolean hasType(Type var1) {
-		Iterator var2 = this.types.iterator();
+	public final boolean hasType(Type type_input) {
+		Iterator iterator = this.types.iterator();
 
-		Type var3;
+		Type type_iter;
 		do {
-			if (! var2.hasNext()) {
+			if (! iterator.hasNext()) {
 				return false;
 			}
 
-			var3 = (Type) var2.next();
-		} while (var3 != var1);
+			type_iter = (Type) iterator.next();
+		} while (type_iter != type_input);
 
 		return true;
 	}
 
-	public final void addEffect(Effect var1) {
-		if (var1.condition() == Status.NORMAL) {
-			this.effects.add(var1);
+	public final void addEffect(Effect effect) {
+		if (effect.condition() == Status.NORMAL) {
+			this.effects.add(effect);
 		} else {
-			this.setCondition(var1);
+			this.setCondition(effect);
 		}
 
 	}
@@ -98,28 +93,27 @@ public class Pokemon {
 		return this.condition.condition();
 	}
 
-	public final void setCondition(Effect var1) {
-		if (var1.success() && this.condition.condition() != var1.condition()) {
-			this.condition = var1;
-			String var2 = "";
-			switch (var1.condition()) {
+	public final void setCondition(Effect effect) {
+		if (effect.success() && this.condition.condition() != effect.condition()) {
+			this.condition = effect;
+			String message = "";
+			switch (effect.condition()) {
 				case BURN:
-					var2 = Messages.get("burn");
+					message = Messages.get("burn");
 					break;
 				case FREEZE:
-					var2 = Messages.get("freeze");
+					message = Messages.get("freeze");
 					break;
 				case PARALYZE:
-					var2 = Messages.get("paralyze");
+					message = Messages.get("paralyze");
 					break;
 				case POISON:
-					var2 = Messages.get("poison");
+					message = Messages.get("poison");
 					break;
 				case SLEEP:
-					var2 = Messages.get("sleep");
+					message = Messages.get("sleep");
 			}
-
-			System.out.println(this + " " + var2);
+			System.out.println(this + " " + message);
 		}
 
 	}
@@ -140,11 +134,11 @@ public class Pokemon {
 		return this.getStat(Stat.HP) - (double) this.stage.stat(Stat.HP);
 	}
 
-	public final void setMod(Stat var1, int var2) {
+	public final void setMod(Stat stat, int var2) {
 		if (var2 != 0) {
-			int var3 = var2 + this.stage.stat(var1);
-			String var4 = "";
-			if (var1 == Stat.HP) {
+			int var3 = var2 + this.stage.stat(stat);
+			String var4;
+			if (stat == Stat.HP) {
 				var4 = Messages.get(var2 > 0 ? "minusHP" : "plusHP") + " " + Math.abs(var2);
 			} else {
 				if (Math.abs(var3) > 6) {
@@ -154,42 +148,42 @@ public class Pokemon {
 				var4 = Messages.get(var2 < 0 ? "minusStat" : "plusStat");
 			}
 
-			this.stage.stat(var1, var3);
-			System.out.println(this + " " + var4 + " " + Messages.get(var1.toString()) + ".");
+			this.stage.stat(stat, var3);
+			System.out.println(this + " " + var4 + " " + Messages.get(stat.toString()) + ".");
 		}
 
 	}
 
 	public final Type[] getTypes() {
-		return (Type[]) this.types.toArray(new Type[0]);
+		return this.types.toArray(new Type[0]);
 	}
 
 	public final int getLevel() {
 		return this.level;
 	}
 
-	public final void setLevel(int var1) {
-		if (var1 < 1) {
-			var1 = 1;
+	public final void setLevel(int level) {
+		if (level < 1) {
+			level = 1;
 		}
 
-		if (var1 > 100) {
-			var1 = 100;
+		if (level > 100) {
+			level = 100;
 		}
 
-		this.level = var1;
+		this.level = level;
 	}
 
 	private double getAttackChance() {
-		double var1 = this.stage.attack();
-		var1 *= this.condition.attack();
+		double attack = this.stage.attack();
+		attack *= this.condition.attack();
 
-		Effect var4;
-		for (Iterator var3 = this.effects.iterator(); var3.hasNext(); var1 *= var4.attack()) {
-			var4 = (Effect) var3.next();
+		Effect effect;
+		for (Iterator effectIterator = this.effects.iterator(); effectIterator.hasNext(); attack *= effect.attack()) {
+			effect = (Effect) effectIterator.next();
 		}
 
-		return var1;
+		return attack;
 	}
 
 	public final void prepareMove() {
@@ -200,7 +194,7 @@ public class Pokemon {
 				this.preparedMove = Move.getConfusionMove();
 				-- this.confusion;
 			} else {
-				this.preparedMove = (Move) this.moves.get((int) Math.floor(Math.random() * (double) this.moves.size()));
+				this.preparedMove = this.moves.get((int) Math.floor(Math.random() * (double) this.moves.size()));
 			}
 		} else {
 			this.preparedMove = Move.getNoMove();
@@ -212,21 +206,21 @@ public class Pokemon {
 		return this.getStat(Stat.HP) > (double) this.stage.stat(Stat.HP);
 	}
 
-	public final boolean attack(Pokemon var1) {
+	public final boolean attack(Pokemon pokemon) {
 		try {
-			Thread.sleep(1000L);
-		} catch (InterruptedException var3) {
+			Thread.sleep(0L);
+		} catch (InterruptedException e) {
 		}
 
-		this.preparedMove.attack(this, var1);
-		if (this.isAlive() && var1.isAlive()) {
+		this.preparedMove.attack(this, pokemon);
+		if (this.isAlive() && pokemon.isAlive()) {
 			System.out.println();
 			return false;
 		} else {
-			if (! this.isAlive() && ! var1.isAlive()) {
+			if (! this.isAlive() && ! pokemon.isAlive()) {
 				System.out.println(Messages.get("bothFaint"));
 			} else {
-				System.out.println((this.isAlive() ? var1 : this) + " " + Messages.get("faint"));
+				System.out.println((this.isAlive() ? pokemon : this) + " " + Messages.get("faint"));
 			}
 
 			return true;
@@ -244,55 +238,42 @@ public class Pokemon {
 			System.out.println(this + " " + Messages.get("thawn"));
 		}
 
-		Iterator var1 = this.effects.iterator();
-
-		while (var1.hasNext()) {
-			Effect var2 = (Effect) var1.next();
-			this.setMod(Stat.HP, var2.stat(Stat.HP));
-			if (var2.turn()) {
-				var2.clear();
+		for (Effect effect : this.effects) {
+			this.setMod(Stat.HP, effect.stat(Stat.HP));
+			if (effect.turn()) {
+				effect.clear();
 			}
 		}
 
 	}
 
-	protected final void setType(Type... var1) {
+	protected final void setType(Type... types) {
 		this.types.clear();
-		if (var1 == null) {
+		if (types == null) {
 			this.types.add(Type.NONE);
 		} else {
-			Type[] var2 = var1;
-			int var3 = var1.length;
-
-			for (int var4 = 0; var4 < var3; ++ var4) {
-				Type var5 = var2[var4];
-				this.types.add(var5);
+			for (Type type : types) {
+				this.types.add(type);
 				if (this.types.size() >= 2) {
 					break;
 				}
 			}
 		}
-
 	}
 
-	protected final void addType(Type var1) {
-		if (this.types.size() < 2 && ! this.types.contains(var1)) {
-			this.types.add(var1);
+	protected final void addType(Type type) {
+		if (this.types.size() < 2 && ! this.types.contains(type)) {
+			this.types.add(type);
 		}
-
 	}
 
-	protected final void setMove(Move... var1) {
+	protected final void setMove(Move... moves) {
 		this.moves.clear();
-		if (var1 == null) {
+		if (moves == null) {
 			this.moves.add(Move.getStruggleMove());
 		} else {
-			Move[] var2 = var1;
-			int var3 = var1.length;
-
-			for (int var4 = 0; var4 < var3; ++ var4) {
-				Move var5 = var2[var4];
-				this.moves.add(var5);
+			for (Move move : moves) {
+				this.moves.add(move);
 				if (this.moves.size() >= 4) {
 					break;
 				}
@@ -301,13 +282,12 @@ public class Pokemon {
 
 	}
 
-	protected final void addMove(Move var1) {
-		this.moves.add(var1);
+	protected final void addMove(Move move) {
+		this.moves.add(move);
 
 		while (this.moves.size() > 4) {
 			this.moves.remove(0);
 		}
-
 	}
 
 	protected final Move getPreparedMove() {

@@ -50,33 +50,33 @@ public abstract class DamageMove extends Move {
 		return Math.random() + 0.15D + 0.85D;
 	}
 
-	public final void attack(Pokemon var1, Pokemon var2) {
+	public final void attack(Pokemon pokemon1, Pokemon pokemon2) {
 		for(int var3 = 0; var3 < this.hits; ++var3) {
-			if (this.checkAccuracy(var1, var2)) {
-				System.out.println(var1 + " " + this.describe() + ". ");
-				double var4 = this.calcBaseDamage(var1, var2) * this.calcAttDefFactor(var1, var2) + 2.0D;
-				var4 *= this.calcCriticalHit(var1, var2);
-				var4 *= this.calcSameTypeAttackBonus(var1, var2);
-				var4 *= this.calcRandomDamage(var1, var2);
-				var4 *= this.calcTypeEffect(var1, var2);
+			if (this.checkAccuracy(pokemon1, pokemon2)) {
+				System.out.println(pokemon1 + " " + this.describe() + ". ");
+				double var4 = this.calcBaseDamage(pokemon1, pokemon2) * this.calcAttDefFactor(pokemon1, pokemon2) + 2.0D;
+				var4 *= this.calcCriticalHit(pokemon1, pokemon2);
+				var4 *= this.calcSameTypeAttackBonus(pokemon1, pokemon2);
+				var4 *= this.calcRandomDamage(pokemon1, pokemon2);
+				var4 *= this.calcTypeEffect(pokemon1, pokemon2);
 				if (var4 == 0.0D) {
 					var4 = 1.0D;
 				}
 
 				var4 = (double)Math.round(var4);
-				this.applyOppDamage(var2, var4);
-				this.applySelfDamage(var1, var4);
-				if (this.type.getEffect(var2.getTypes()) > 0.0D) {
-					this.applyOppEffects(var2);
+				this.applyOppDamage(pokemon2, var4);
+				this.applySelfDamage(pokemon1, var4);
+				if (this.type.getEffect(pokemon2.getTypes()) > 0.0D) {
+					this.applyOppEffects(pokemon2);
 				} else {
-					System.out.println(var2 + " " + Messages.get("noeffect") + " " + this.type);
+					System.out.println(pokemon2 + " " + Messages.get("noeffect") + " " + this.type);
 				}
 
-				if (this.type.getEffect(var1.getTypes()) > 0.0D) {
-					this.applySelfEffects(var1);
+				if (this.type.getEffect(pokemon1.getTypes()) > 0.0D) {
+					this.applySelfEffects(pokemon1);
 				}
 			} else {
-				System.out.println(var1 + " " + Messages.get("miss"));
+				System.out.println(pokemon1 + " " + Messages.get("miss"));
 			}
 		}
 
