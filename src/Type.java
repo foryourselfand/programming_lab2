@@ -19,7 +19,7 @@ public enum Type {
 	FAIRY,
 	NONE;
 
-	private static final int[][] effects = new int[values().length][values().length];
+	public static final int[][] effects = new int[values().length][values().length];
 
 	static {
 		NORMAL.half(ROCK, STEEL).zero(GHOST);
@@ -42,47 +42,37 @@ public enum Type {
 		FAIRY.half(FIRE, POISON, STEEL).doub(FIGHTING, DRAGON, DARK);
 	}
 
-	private Type() {
+	Type() {
 	}
 
-	private double effect(Type var1) {
-		return 1.0D - (double) effects[this.ordinal()][var1.ordinal()] / 2.0D;
+	private double effect(Type type) {
+		return 1.0D - (double) effects[this.ordinal()][type.ordinal()] / 2.0D;
 	}
 
-	private Type setX(int var1, Type... var2) {
-		Type[] var3 = var2;
-		int var4 = var2.length;
-
-		for (int var5 = 0; var5 < var4; ++ var5) {
-			Type var6 = var3[var5];
-			effects[this.ordinal()][var6.ordinal()] = var1;
+	private Type setX(int x, Type... types) {
+		for (Type type : types) {
+			effects[this.ordinal()][type.ordinal()] = x;
 		}
-
 		return this;
 	}
 
-	private Type zero(Type... var1) {
-		return this.setX(2, var1);
+	private Type zero(Type... types) {
+		return this.setX(2, types);
 	}
 
-	private Type half(Type... var1) {
-		return this.setX(1, var1);
+	private Type half(Type... types) {
+		return this.setX(1, types);
 	}
 
-	private Type doub(Type... var1) {
-		return this.setX(- 2, var1);
+	private Type doub(Type... types) {
+		return this.setX(-2, types);
 	}
 
-	public double getEffect(Type... var1) {
-		double var2 = 1.0D;
-		Type[] var4 = var1;
-		int var5 = var1.length;
+	public double getEffect(Type... types) {
+		double start = 1.0D;
 
-		for (int var6 = 0; var6 < var5; ++ var6) {
-			Type var7 = var4[var6];
-			var2 *= this.effect(var7);
-		}
-
-		return var2;
+		for (Type type : types)
+			start *= this.effect(type);
+		return start;
 	}
 }

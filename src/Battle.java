@@ -10,10 +10,10 @@ public final class Battle {
 
 	public Battle() {
 		ArrayList arrayList = new ArrayList();
-		arrayList.addAll((List)Messages.getObj("teams"));
+		arrayList.addAll((List) Messages.getObj("teams"));
 		Collections.shuffle(arrayList);
-		this.allies = new Team((String)arrayList.get(0));
-		this.foes = new Team((String)arrayList.get(1));
+		this.allies = new Team((String) arrayList.get(0));
+		this.foes = new Team((String) arrayList.get(1));
 	}
 
 	public void addAlly(Pokemon var1) {
@@ -56,8 +56,8 @@ public final class Battle {
 				}
 
 				this.foes.poke().turn();
-			} while(this.foes.poke().isAlive());
-		} while(this.allies.hasNext() && this.foes.hasNext());
+			} while (this.foes.poke().isAlive());
+		} while (this.allies.hasNext() && this.foes.hasNext());
 
 		if (!this.allies.hasNext() && !this.foes.hasNext()) {
 			System.out.println(Messages.get("tie"));

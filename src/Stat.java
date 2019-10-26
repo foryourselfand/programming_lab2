@@ -10,8 +10,8 @@ public enum Stat {
 
 	private boolean hidden;
 
-	private Stat(boolean var3) {
-		this.hidden = var3;
+	Stat(boolean hidded) {
+		this.hidden = hidded;
 	}
 
 	public boolean isHidden() {
