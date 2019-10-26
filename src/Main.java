@@ -10,13 +10,13 @@ public class Main {
 		Pokemon p5 = new Jigglypuff("SuperCutie", 8);
 		Pokemon p6 = new Wigglytuff("Wiee", 7);
 
-		battle.addAlly(p1);
+//		battle.addAlly(p1);
 		battle.addAlly(p2);
-		battle.addAlly(p3);
+//		battle.addAlly(p3);
 
 		battle.addFoe(p4);
-		battle.addFoe(p5);
-		battle.addFoe(p6);
+//		battle.addFoe(p5);
+//		battle.addFoe(p6);
 
 		battle.go();
 	}

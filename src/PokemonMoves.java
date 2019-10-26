@@ -71,21 +71,21 @@ class Facade extends PhysicalMove {
 
 	@Override
 	protected void applyOppDamage(Pokemon pokemon, double v) {
-		if (pokemon.getCondition() == Status.POISON ||
-				pokemon.getCondition() == Status.PARALYZE) {
-			super.applyOppDamage(pokemon, 140);
-		}
+		double damage = v;
+		if (pokemon.getCondition() == Status.POISON || pokemon.getCondition() == Status.PARALYZE || pokemon.getCondition() == Status.BURN)
+			damage *= 2;
+		super.applyOppDamage(pokemon, damage);
 	}
 
-	// hope it works
 	@Override
-    /*
-    If an attacking pokemon is burning a defending pokemon is getting a standard damage value
-     */
 	protected void applySelfEffects(Pokemon pokemon) {
-		if (pokemon.getCondition() == Status.BURN) {
-			super.applyOppDamage(pokemon, 70);
-		}
+		double newAttack = pokemon.getStat(Stat.ATTACK);
+
+		if (pokemon.getCondition() == Status.BURN)
+			newAttack = newAttack / 2;
+
+		pokemon.setStats(pokemon.getHP(), newAttack, pokemon.getStat(Stat.DEFENSE),
+				pokemon.getStat(Stat.SPECIAL_ATTACK), pokemon.getStat(Stat.SPECIAL_DEFENSE), pokemon.getStat(Stat.SPEED));
 	}
 
 	@Override

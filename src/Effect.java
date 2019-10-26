@@ -14,6 +14,55 @@ public final class Effect {
 		this.condition = Status.NORMAL;
 	}
 
+	public static void burn(Pokemon var0) {
+		if (! var0.hasType(Type.FIRE)) {
+			Effect var1 = (new Effect()).condition(Status.BURN).turns(- 1);
+			var1.stat(Stat.ATTACK, - 2).stat(Stat.HP, (int) var0.getStat(Stat.HP) / 16);
+			var0.setCondition(var1);
+		}
+
+	}
+
+	public static void paralyze(Pokemon var0) {
+		if (! var0.hasType(Type.ELECTRIC)) {
+			Effect var1 = (new Effect()).condition(Status.PARALYZE).attack(0.75D).turns(- 1);
+			var1.stat(Stat.SPEED, - 2);
+			var0.setCondition(var1);
+		}
+
+	}
+
+	public static void freeze(Pokemon var0) {
+		if (! var0.hasType(Type.ICE)) {
+			Effect var1 = (new Effect()).condition(Status.FREEZE).attack(0.0D).turns(- 1);
+			var0.setCondition(var1);
+		}
+
+	}
+
+	public static void poison(Pokemon var0) {
+		if (! var0.hasType(Type.POISON) && ! var0.hasType(Type.STEEL)) {
+			Effect var1 = (new Effect()).condition(Status.POISON).turns(- 1);
+			var1.stat(Stat.HP, (int) var0.getStat(Stat.HP) / 8);
+			var0.setCondition(var1);
+		}
+
+	}
+
+	public static void sleep(Pokemon var0) {
+		Effect var1 = (new Effect()).condition(Status.SLEEP).attack(0.0D).turns((int) (Math.random() * 3.0D + 1.0D));
+		var0.setCondition(var1);
+	}
+
+	public static void flinch(Pokemon var0) {
+		Effect var1 = (new Effect()).attack(0.0D).turns((int) (Math.random() * 4.0D + 1.0D));
+		var0.addEffect(var1);
+	}
+
+	public static void confuse(Pokemon var0) {
+		var0.confuse();
+	}
+
 	public final Effect turns(int var1) {
 		this.turns = var1;
 		return this;
@@ -42,7 +91,7 @@ public final class Effect {
 		Stat[] var1 = Stat.values();
 		int var2 = var1.length;
 
-		for(int var3 = 0; var3 < var2; ++var3) {
+		for (int var3 = 0; var3 < var2; ++ var3) {
 			Stat var4 = var1[var3];
 			this.mods[var4.ordinal()] = 0;
 		}
@@ -67,8 +116,8 @@ public final class Effect {
 				var2 = 6;
 			}
 
-			if (var2 < 0 & var2 < -6) {
-				var2 = -6;
+			if (var2 < 0 & var2 < - 6) {
+				var2 = - 6;
 			}
 		}
 
@@ -85,55 +134,6 @@ public final class Effect {
 	}
 
 	public final boolean turn() {
-		return --this.turns == 0;
-	}
-
-	public static void burn(Pokemon var0) {
-		if (!var0.hasType(Type.FIRE)) {
-			Effect var1 = (new Effect()).condition(Status.BURN).turns(-1);
-			var1.stat(Stat.ATTACK, -2).stat(Stat.HP, (int)var0.getStat(Stat.HP) / 16);
-			var0.setCondition(var1);
-		}
-
-	}
-
-	public static void paralyze(Pokemon var0) {
-		if (!var0.hasType(Type.ELECTRIC)) {
-			Effect var1 = (new Effect()).condition(Status.PARALYZE).attack(0.75D).turns(-1);
-			var1.stat(Stat.SPEED, -2);
-			var0.setCondition(var1);
-		}
-
-	}
-
-	public static void freeze(Pokemon var0) {
-		if (!var0.hasType(Type.ICE)) {
-			Effect var1 = (new Effect()).condition(Status.FREEZE).attack(0.0D).turns(-1);
-			var0.setCondition(var1);
-		}
-
-	}
-
-	public static void poison(Pokemon var0) {
-		if (!var0.hasType(Type.POISON) && !var0.hasType(Type.STEEL)) {
-			Effect var1 = (new Effect()).condition(Status.POISON).turns(-1);
-			var1.stat(Stat.HP, (int)var0.getStat(Stat.HP) / 8);
-			var0.setCondition(var1);
-		}
-
-	}
-
-	public static void sleep(Pokemon var0) {
-		Effect var1 = (new Effect()).condition(Status.SLEEP).attack(0.0D).turns((int)(Math.random() * 3.0D + 1.0D));
-		var0.setCondition(var1);
-	}
-
-	public static void flinch(Pokemon var0) {
-		Effect var1 = (new Effect()).attack(0.0D).turns((int)(Math.random() * 4.0D + 1.0D));
-		var0.addEffect(var1);
-	}
-
-	public static void confuse(Pokemon var0) {
-		var0.confuse();
+		return -- this.turns == 0;
 	}
 }
